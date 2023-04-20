@@ -1,103 +1,208 @@
 # ChatGPT Discord Bot
 
-中文 | [English](README.en.md)
+> ### Build your own Discord bot using ChatGPT
+>
+---
+> **Warning**
+>
+> #### 2023-04-12 Bing now supported
+> #### 2023-04-01 Only Plus account can access Unofficial model
+> #### 2023-03-27 Bard now supported
 
-[![license](https://img.shields.io/pypi/l/ansicolortags.svg)](LICENSE) [![Release](https://img.shields.io/github/v/release/TheExplainthis/ChatGPT-Discord-Bot)](https://github.com/TheExplainthis/ChatGPT-Discord-Bot/releases/)
+## Features
 
+* `/chat [message]` Chat with ChatGPT!
+* `/draw [prompt]` Generate an image with the Dalle2 model
+* `/switchpersona [persona]` Switch between optional chatGPT jailbreaks
+   * `random`: Picks a random persona
+   * `chatGPT`: Standard chatGPT mode
+   * `dan`: Dan Mode 11.0, infamous Do Anything Now Mode
+   * `sda`: Superior DAN has even more freedom in DAN Mode
+   * `confidant`: Evil Confidant, evil trusted confidant
+   * `based`: BasedGPT v2, sexy gpt
+   * `oppo`: OPPO says exact opposite of what chatGPT would say
+   * `dev`: Developer Mode, v2 Developer mode enabled
 
-ChatGPT 串接到 Discord 上面，使得團隊在協作、溝通、效率上都能夠快速的提升，根據下面的安裝步驟，你也能在自己的 Discord 當中去導入 ChatGPT。
+* `/private` ChatGPT switch to private mode
+* `/public` ChatGPT switch to public mode
+* `/replyall` ChatGPT switch between replyAll mode and default mode
+* `/reset` Clear ChatGPT conversation history
+* `/chat-model` Switch different chat model
+   * `OFFICIAL-GPT-3.5`: GPT-3.5 model
+   * `OFFICIAL-GPT-4.0`: GPT-4.0 model (make sure your account can access gpt-4 model)
+   * `Website ChatGPT-3.5`: Website ChatGPT-3.5 model (UNOFFICIAL)
+   * `Website ChatGPT-4.0`: Website ChatGPT-4.0 model (UNOFFICIAL)(available if you got a plus account)
+   * `Bard`: Google Bard Model
 
-## 更新
-- 2023/03/03 模型換成 chat completion: `gpt-3.5-turbo`
+### Chat
 
+![image](https://user-images.githubusercontent.com/89479282/206497774-47d960cd-1aeb-4fba-9af5-1f9d6ff41f00.gif)
 
-## 介紹
-在 Discord 裡的每個頻道中導入 ChatGPT Bot，只要在輸入框輸入 `/chat` 就會 有一個 `/chat message` 的關鍵字自動帶入，直接輸入文字即可與 ChatGPT 互動，如下圖所示：
-![Demo](https://github.com/TheExplainthis/ChatGPT-Discord-Bot/blob/main/demo/chatgpt-discord-bot.gif)
+### Draw
 
+![image](https://user-images.githubusercontent.com/91911303/223772051-13f840d5-99ef-4762-98d2-d15ce23cbbd5.png)
 
-## 安裝步驟
-### Token 取得
-1. 取得 OpenAI 給的 API Token：
-    1. [OpenAI](https://beta.openai.com/) 平台中註冊/登入帳號
-    2. 右上方有一個頭像，點入後選擇 `View API keys`
-    3. 點選中間的 `Create new secret key`
-    - 注意：每隻 API 有免費額度，也有其限制，詳情請看 [OpenAI Pricing](https://openai.com/api/pricing/)
-2. 取得 Discord Token：
-    1. 登入 [Discord Developer](https://discord.com/developers/applications)
-    2. 創建機器人：
-        1. 進入左方 `Applications`
-        2. 點擊右上方 `New Application` 並輸入 Bot 的名稱 > 確認後進入新頁面。
-        3. 點擊左方 `Bot`
-        4. 點擊右方 `Add Bot`
-        5. 下方 `MESSAGE CONTENT INTENT` 需打開 
-        6. 按下 `Save Change`
-        7. Token 在上方選擇 `View Token` 或已申請過則會是 `Reset Token` 的按鈕。
-    3. 設定 OAuth2
-        1. 點擊左欄 `OAuth2`
-        2. 點擊左欄 `URL Generator`
-        3. 右欄 `SCOPES` 選擇 `bot`、右欄下方 `BOT PERMISSIONS` 選擇 `Administrator`
-        4. 複製最下方網址到瀏覽器中
-        5. 選擇欲加入的伺服器
-        6. 按下 `繼續` > `授權`
+### Switch Persona
 
-### 專案設置
-1. Fork Github 專案：
-    1. 註冊/登入 [GitHub](https://github.com/)
-    2. 進入 [ChatGPT-Discord-Bot](https://github.com/TheExplainthis/ChatGPT-Discord-Bot)
-    3. 點選 `Star` 支持開發者
-    4. 點選 `Fork` 複製全部的程式碼到自己的倉庫
-2. 部署（免費空間）：
-    1. 進入 [replit](https://replit.com/)
-    2. 點選 `Sign Up` 直接用 `Github` 帳號登入並授權 -> 按下 `Skip` 跳過初始化設定
-    3. 進入後中間主頁的部分點選 `Create` -> 跳出框，點選右上角 `Import from Github`
-    4. 若尚未加入 Github 倉庫，則點選連結 `Connect GitHub to import your private repos.` -> 勾選 `Only select repositories` -> 選擇 `ChatGPT-Discord-Bot`
-    5. 回到第四步，此時 `Github URL` 可以選擇 `ChatGPT-Discord-Bot` 專案 -> 點擊 `Import from Github`。
+> **Warning**
+>
+> Using certain personas may generate vulgar or disturbing content. Use at your own risk.
 
-### 專案執行
-1. 環境變數設定
-    1. 接續上一步 `Import` 完成後在 `Replit` 的專案管理頁面左下方 `Tools` 點擊 `Secrets`。
-    2. 右方按下 `Got it` 後，即可新增環境變數，需新增：
-        1. OpenAI API Token：
-            - key: `OPENAI_API`
-            - value: `[由上方步驟一取得] sk-FoXXXX`
-        2. 欲選擇的模型：
-            - key: `OPENAI_MODEL_ENGINE`
-            - value: `gpt-3.5-turbo`  
-        3. ChatGPT 要讓助理扮演的角色詞（目前官方無釋出更多的使用方法，由玩家自行測試）
-            - key: `SYSTEM_MESSAGE`
-            - value: `You are a helpful assistant.`
-        4. Discord Token:
-            - key: `DISCORD_TOKEN`
-            - value: `[由上方步驟一取得] MTA3NXXX`
-2. 開始執行
-    1. 點擊上方的 `Run`
-    2. 成功後右邊畫面會顯示 `Hello. I am alive!`，並將畫面中上方的**網址複製**下來，下一步驟會用到
-    - 注意：若一小時內沒有任何請求，則程式會中斷，因此需要下步驟
-3. CronJob 定時發送請求
-    1. 註冊/登入 [cron-job.org](https://cron-job.org/en/)
-    2. 進入後面板右上方選擇 `CREATE CRONJOB`
-    3. `Title` 輸入 `ChatGPT-Discord-Bot`，網址輸入上一步驟的網址
-    4. 下方則每 `5 分鐘` 打一次
-    5. 按下 `CREATE`
+![image](https://user-images.githubusercontent.com/91911303/223772334-7aece61f-ead7-4119-bcd4-7274979c4702.png)
 
 
-## 指令
-| 指令 | 說明 |
-| --- | ----- |
-| `/chat` | 在輸入框直接輸入 `/chat` 會後綴 `message` 直接輸入文字，即可調用 ChatGPT 模型。|
-| `/reset` | ChatGPT 會記住前十次的問答紀錄，調用此指令則會清除。|
-| `/imagine` | 在輸入框輸入 `/imagine` 會後綴 `prompt` 直接輸入文字，會調用 DALL·E 2 模型，即可生成圖像。|
+
+### Mode
+
+* `public mode (default)`  the bot directly reply on the channel
+
+  ![image](https://user-images.githubusercontent.com/89479282/206565977-d7c5d405-fdb4-4202-bbdd-715b7c8e8415.gif)
+
+* `private mode` the bot's reply can only be seen by the person who used the command
+
+  ![image](https://user-images.githubusercontent.com/89479282/206565873-b181e600-e793-4a94-a978-47f806b986da.gif)
+
+* `replyall mode` the bot will reply to all messages in the channel without using slash commands (`/chat` will also be unavailable)
+
+   > **Warning**
+   > The bot will easily be triggered in `replyall` mode, which could cause program failures
+
+# Setup
+
+## Critical prerequisites to install
+
+* run ```pip3 install -r requirements.txt```
+
+* **Rename the file `.env.dev` to `.env`**
+
+* Recommended python version `3.10`
+## Step 1: Create a Discord bot
+
+1. Go to https://discord.com/developers/applications create an application
+2. Build a Discord bot under the application
+3. Get the token from bot setting
+
+   ![image](https://user-images.githubusercontent.com/89479282/205949161-4b508c6d-19a7-49b6-b8ed-7525ddbef430.png)
+4. Store the token to `.env` under the `DISCORD_BOT_TOKEN`
+
+   <img height="190" width="390" alt="image" src="https://user-images.githubusercontent.com/89479282/222661803-a7537ca7-88ae-4e66-9bec-384f3e83e6bd.png">
+
+5. Turn MESSAGE CONTENT INTENT `ON`
+
+   ![image](https://user-images.githubusercontent.com/89479282/205949323-4354bd7d-9bb9-4f4b-a87e-deb9933a89b5.png)
+
+6. Invite your bot to your server via OAuth2 URL Generator
+
+   ![image](https://user-images.githubusercontent.com/89479282/205949600-0c7ddb40-7e82-47a0-b59a-b089f929d177.png)
+## Step 2: Official API authentication
+
+### Geanerate an OpenAI API key
+1. Go to https://beta.openai.com/account/api-keys
+
+2. Click Create new secret key
+
+   ![image](https://user-images.githubusercontent.com/89479282/207970699-2e0cb671-8636-4e27-b1f3-b75d6db9b57e.PNG)
+
+3. Store the SECRET KEY to `.env` under the `OPENAI_API_KEY`
+
+4. You're all set for [Step 3](#step-3-run-the-bot-on-the-desktop)
+
+## Step 2: Website ChatGPT authentication - 2 approaches
+
+* 2023-04-01: Only Support Plus Account now
+
+### Email/Password authentication (Not supported for Google/Microsoft accounts)
+
+1. Create an account on https://chat.openai.com/chat and open it
+
+2.  Open console with `F12`
+3.  Open `Application` tab > Cookies
+
+   ![image](https://user-images.githubusercontent.com/89479282/229298001-41ab4f61-5b79-4c65-b08c-708ee6fe2304.png)
+
+4. Copy the value for `_puid` from cookies and paste it into `.env` under `PUID`
+
+5. Save your email into `.env` under `OPENAI_EMAIL`
+
+6. Save your password into `.env` under `OPENAI_PASSWORD`
+
+7. You're all set for [Step 3](#step-3-run-the-bot-on-the-desktop)
+
+### ACCESS token authentication
+1. Open https://chat.openai.com/api/auth/session
+
+2. Open console with `F12`
+
+3. Open `Application` tab > Cookies
+
+   ![image](https://user-images.githubusercontent.com/89479282/229298001-41ab4f61-5b79-4c65-b08c-708ee6fe2304.png)
+
+4. Copy the value for `_puid` from cookies and paste it into `.env` under `PUID`
 
 
-## 支持我們
-如果你喜歡這個專案，願意[支持我們](https://www.buymeacoffee.com/explainthis)，可以請我們喝一杯咖啡，這會成為我們繼續前進的動力！
+5. Copy the value for `accessToken` from cookies and paste it into `.env` under `ACCESS_TOKEN`
 
-[<a href="https://www.buymeacoffee.com/explainthis" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" height="45px" width="162px" alt="Buy Me A Coffee"></a>](https://www.buymeacoffee.com/explainthis)
+6. You're all set for [Step 3](#step-3-run-the-bot-on-the-desktop)
+
+## Step 2: Google Bard authentication
+1. Go to https://bard.google.com/
+
+2. Open console with `F12`
+
+3. Open `Application` tab > Cookies
+
+4. Copy the value for `__Secure-1PSID` from cookies and paste it into `.env` under `BARD_SESSION_ID`
+
+5. You're all set for [Step 3](#step-3-run-the-bot-on-the-desktop)
 
 
-## 相關專案
-- [chatGPT-discord-bot](https://github.com/Zero6992/chatGPT-discord-bot)
+## Step 2: Microsoft Bing authentication
+1. **Rename the file `cookies.dev.json` to `cookies.json`**
 
-## 授權
-[MIT](LICENSE)
+2. Go to https://bing.com/chat and log in your Microsoft account
+
+3. Use Cookie Editor or similar extensions to export the cookies
+
+3. Paste it into `cookies.json`
+
+5. You're all set for [Step 3](#step-3-run-the-bot-on-the-desktop)
+
+## Step 3: Run the bot on the desktop
+
+1. Open a terminal or command prompt
+
+2. Navigate to the directory where you installed the ChatGPT Discord bot
+
+3. Run `python3 main.py` or `python main.py` to start the bot
+
+## Step 3: Run the bot with Docker
+
+1. Build the Docker image & Run the Docker container `docker compose up -d`
+
+2. Inspect whether the bot works well `docker logs -t chatgpt-discord-bot`
+
+   ### Stop the bot:
+
+   * `docker ps` to see the list of running services
+   * `docker stop <BOT CONTAINER ID>` to stop the running bot
+
+### Have a good chat!
+## Optional: Disable logging
+
+* Set the value of `LOGGING` in the `.env` to False
+## Optional: Setup system prompt
+
+* A system prompt would be invoked when the bot is first started or reset
+* You can set it up by modifying the content in `system_prompt.txt`
+* All the text in the file will be fired as a prompt to the bot
+* Get the first message from ChatGPT in your discord channel!
+
+   1. Right-click the channel you want to recieve the message, `Copy  ID`
+
+        ![channel-id](https://user-images.githubusercontent.com/89479282/207697217-e03357b3-3b3d-44d0-b880-163217ed4a49.PNG)
+
+   2. paste it into `.env` under `DISCORD_CHANNEL_ID`
+
+ ---
+ [**中文說明**](https://zero6992.github.io/2023/03/10/chatGPT-discord-bot-chinese/)
+
